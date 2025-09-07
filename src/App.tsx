@@ -1,119 +1,185 @@
-import './App.css'
-
-interface Project {
-  id: number
-  title: string
-  description: string
-  url: string
-  tech: string[]
-}
+import { Routes, Route, Link, Navigate, useLocation } from "react-router-dom";
+import "./App.css";
 
 function App() {
-  const projects: Project[] = [
-    {
-      id: 1,
-      title: "React Todo App",
-      description: "一个功能完整的待办事项应用，支持增删改查、拖拽排序等功能",
-      url: "https://your-todo-app.vercel.app",
-      tech: ["React", "TypeScript", "CSS3"]
-    },
-    {
-      id: 2,
-      title: "Vue.js 博客系统",
-      description: "基于Vue.js构建的个人博客系统，支持Markdown编辑和文章管理",
-      url: "https://your-blog.vercel.app",
-      tech: ["Vue.js", "Node.js", "MongoDB"]
-    },
-    {
-      id: 3,
-      title: "数据可视化大屏",
-      description: "企业级数据可视化展示平台，实时数据监控和图表展示",
-      url: "https://your-dashboard.vercel.app",
-      tech: ["React", "D3.js", "WebSocket"]
-    }
-  ]
+  const location = useLocation();
+  const musicTracks = [
+    { title: "Html", plays: "熟悉", comments: "0" },
+    { title: "Css", plays: "熟悉", comments: "0" },
+    { title: "Javascript", plays: "熟悉", comments: "0" },
+    { title: "Typescript", plays: "熟悉", comments: "0" },
+    { title: "React", plays: "熟悉", comments: "0" },
+    { title: "Vue", plays: "熟悉", comments: "0" },
+    { title: "Node", plays: "熟悉", comments: "0" },
+    { title: "Taro", plays: "熟悉", comments: "0" },
+    { title: "小程序", plays: "熟悉", comments: "0" },
+    { title: "C++", plays: "熟悉", comments: "0" },
+  ];
 
-  const skills = [
-    "JavaScript", "TypeScript", "React", "Vue.js", "Node.js", 
-    "Python", "HTML5", "CSS3", "Git", "Docker"
-  ]
+  // const shortTracks = [
+  //   { title: "Ain't I Lost Control", plays: "48570", comments: "0" },
+  //   { title: "仰世而来（Demo）", plays: "32145", comments: "0" },
+  // ];
+
+  const projects = [
+    {
+      name: "Vue 项目",
+      desc: "支持 Markdown 的静态博客，内置暗色主题与全文搜索。",
+      tech: ["Vue", "Js"],
+      demo: "#",
+      github: "#",
+    },
+    {
+      name: "React 项目",
+      desc: "Web 音乐播放器，支持播放列表与快捷键。",
+      tech: ["React", "Ts"],
+      demo: "#",
+      github: "#",
+    },
+  ];
+
+  const isHome = location.pathname === "/" || location.pathname === "/home";
 
   return (
     <div className="app">
-      {/* 背景动画 */}
-      <div className="background-animation"></div>
-      
-      {/* 个人信息区域 */}
-      <section className="hero-section">
-        <div className="hero-content">
-          <div className="avatar-container">
-            <div className="avatar">
-              <span className="avatar-text">👨‍💻</span>
+      {/* Page header maroon area */}
+      <header className="page-header">
+        <div className="container header-inner">
+          <div className="header-left">
+            <h1 className="site-title">欢迎来到我的主页~</h1>
+            <div className="subnav">
+              <Link className={isHome ? "active" : ""} to="/">
+                主页
+              </Link>
+              <Link className={!isHome ? "active" : ""} to="/projects">
+                项目集
+              </Link>
             </div>
           </div>
-          <h1 className="name">张三</h1>
-          <p className="title">全栈开发工程师</p>
-          <p className="description">
-            热爱编程，专注于前端技术栈开发，擅长React、Vue.js等现代框架，
-            致力于创造优秀的用户体验和高质量的代码。
-          </p>
-          <div className="contact-links">
-            <a href="mailto:your-email@example.com" className="contact-btn">
-              📧 联系我
-            </a>
-            <a href="https://github.com/yourusername" className="contact-btn" target="_blank" rel="noopener noreferrer">
-              🔗 GitHub
-            </a>
+          <div className="header-right">
+            <div className="header-avatar">{/* 头像位 */}</div>
           </div>
         </div>
-      </section>
+      </header>
 
-      {/* 技能区域 */}
-      <section className="skills-section">
-        <h2 className="section-title">技能栈</h2>
-        <div className="skills-grid">
-          {skills.map((skill, index) => (
-            <div key={index} className="skill-tag">
-              {skill}
-            </div>
-          ))}
-        </div>
-      </section>
+      {/* Two columns: left main, right sidebar */}
+      <div className="container columns">
+        {/* Left main */}
+        <main className="main-left">
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <>
+                  {/* 公告板（主页） */}
+                  <section className="card notice-card">
+                    <section className="card profile-card">
+                      <div className="profile-header">
+                        <h3 className="profile-name">sl</h3>
+                        <p className="profile-subtitle">前端工程师</p>
+                      </div>
+                    </section>
+                  </section>
 
-      {/* 作品展示区域 */}
-      <section className="projects-section">
-        <h2 className="section-title">我的作品</h2>
-        <div className="projects-grid">
-          {projects.map((project) => (
-            <div key={project.id} className="project-card">
-              <div className="project-header">
-                <h3 className="project-title">{project.title}</h3>
-                <a 
-                  href={project.url} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="project-link"
-                >
-                  🔗 访问
-                </a>
-              </div>
-              <p className="project-description">{project.description}</p>
-              <div className="project-tech">
-                {project.tech.map((tech, index) => (
-                  <span key={index} className="tech-tag">{tech}</span>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+                  {/* 个人优势（主页内容） */}
+                  <section className="card music-card">
+                    <div className="section-header">
+                      <h2>「个人优势」</h2>
+                    </div>
+                    <div className="music-table">
+                      <div className="table-header">
+                        <span className="col-title">技能</span>
+                        <span className="col-plays">掌握程度</span>
+                      </div>
+                      {musicTracks.map((track, i) => (
+                        <div key={i} className="track-row">
+                          <div className="track-info">
+                            <span className="dot" />
+                            <span className="track-title">{track.title}</span>
+                          </div>
+                          <span className="track-plays">{track.plays}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </section>
+                </>
+              }
+            />
 
-      {/* 页脚 */}
-      <footer className="footer">
-        <p>&copy; 2024 张三. All rights reserved.</p>
-      </footer>
+            <Route
+              path="/projects"
+              element={
+                <>
+                  {/* 资料卡（与主页一致） */}
+                  <section className="card notice-card">
+                    <section className="card profile-card">
+                      <div className="profile-header">
+                        <h3 className="profile-name">sl</h3>
+                        <p className="profile-subtitle">前端工程师</p>
+                      </div>
+                    </section>
+                  </section>
+
+                  {/* 项目列表（项目集路由） */}
+                  <section className="card project-card">
+                    <div className="section-header">
+                      <h2>「项目」</h2>
+                    </div>
+                    <div className="project-list">
+                      {projects.map((p, i) => (
+                        <div key={i} className="project-item">
+                          <div className="project-main">
+                            <a
+                              className="project-title"
+                              href={p.demo}
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              {p.name}
+                            </a>
+                            <p className="project-desc">{p.desc}</p>
+                            <div className="project-tags">
+                              {p.tech.map((t, idx) => (
+                                <span className="tag" key={idx}>
+                                  {t}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                          <div className="project-actions">
+                            <a
+                              className="link-btn"
+                              href={p.demo}
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              预览
+                            </a>
+                            {/* <a
+                              className="link-btn"
+                              href={p.github}
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              GitHub
+                            </a> */}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </section>
+                </>
+              }
+            />
+
+            {/* 兼容 /home 与未知路由 */}
+            <Route path="/home" element={<Navigate to="/" replace />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </main>
+      </div>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
