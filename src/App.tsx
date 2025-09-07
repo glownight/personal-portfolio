@@ -1,8 +1,12 @@
 import { Routes, Route, Link, Navigate, useLocation } from "react-router-dom";
+import { useState } from "react";
 import "./App.css";
+import Fireworks from "./components/Fireworks";
+import TypeWriter from "./components/TypeWriter";
 
 function App() {
   const location = useLocation();
+  const [fireworksOn, setFireworksOn] = useState(false);
   const musicTracks = [
     { title: "Html", plays: "熟悉", comments: "0" },
     { title: "Css", plays: "熟悉", comments: "0" },
@@ -46,7 +50,9 @@ function App() {
       <header className="page-header">
         <div className="container header-inner">
           <div className="header-left">
-            <h1 className="site-title">欢迎来到我的主页~</h1>
+            <h1 className="site-title">
+              <TypeWriter text="Hi，欢迎来到我的主页~" />
+            </h1>
             <div className="subnav">
               <Link className={isHome ? "active" : ""} to="/">
                 主页
@@ -58,6 +64,21 @@ function App() {
           </div>
           <div className="header-right">
             <div className="header-avatar">{/* 头像位 */}</div>
+            {/* 可爱开关按钮 */}
+            <button
+              className={`kawaii-toggle ${fireworksOn ? "on" : "off"}`}
+              onClick={() => setFireworksOn((v) => !v)}
+              aria-pressed={fireworksOn}
+              title={fireworksOn ? "关闭烟花" : "打开烟花"}
+            >
+              <span className="spark">✦</span>
+              <span className="face" aria-hidden>
+                {fireworksOn ? "(｡•́︿•̀｡)" : "(≧▽≦)"}
+              </span>
+              <span className="label">
+                {fireworksOn ? "点击我关闭烟花" : "点击我开启烟花"}
+              </span>
+            </button>
           </div>
         </div>
       </header>
@@ -178,6 +199,7 @@ function App() {
           </Routes>
         </main>
       </div>
+      <Fireworks enabled={fireworksOn} />
     </div>
   );
 }
