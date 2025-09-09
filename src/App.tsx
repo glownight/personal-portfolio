@@ -27,18 +27,18 @@ function App() {
 
   const projects = [
     {
-      name: "Vue 项目",
-      desc: "支持 Markdown 的静态博客，内置暗色主题与全文搜索。",
-      tech: ["Vue", "Js"],
-      demo: "#",
-      github: "#",
+      name: "classroom",
+      desc: "使用Threejs开发的3D项目",
+      tech: ["Threejs"],
+      demo: "https://threejs-classroom-6uf3-3u9xf3ekw-glownights-projects.vercel.app/",
+      github: "https://github.com/glownight/threejs-classroom",
     },
     {
-      name: "React 项目",
-      desc: "Web 音乐播放器，支持播放列表与快捷键。",
-      tech: ["React", "Ts"],
-      demo: "#",
-      github: "#",
+      name: "tools-web-react",
+      desc: "一个基于React的工具库",
+      tech: ["React", "Js"],
+      demo: "https://tools-web-react-dhvf.vercel.app/",
+      github: "https://github.com/glownight/tools-web-react",
     },
   ];
 
