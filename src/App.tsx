@@ -1,12 +1,8 @@
 import { Routes, Route, Link, Navigate, useLocation } from "react-router-dom";
-import { useState } from "react";
 import "./App.css";
-import Fireworks from "./components/Fireworks";
-import TypeWriter from "./components/TypeWriter";
 
 function App() {
   const location = useLocation();
-  const [fireworksOn, setFireworksOn] = useState(false);
   const musicTracks = [
     { title: "Html", plays: "熟悉", comments: "0" },
     { title: "Css", plays: "熟悉", comments: "0" },
@@ -27,17 +23,17 @@ function App() {
 
   const projects = [
     {
-      name: "Vue 项目",
-      desc: "支持 Markdown 的静态博客，内置暗色主题与全文搜索。",
+      name: "教室",
+      desc: "使用Threejs开发的3D项目",
       tech: ["Vue", "Js"],
-      demo: "#",
+      demo: "https://threejs-classroom-6uf3-3u9xf3ekw-glownights-projects.vercel.app/",
       github: "#",
     },
     {
-      name: "React 项目",
-      desc: "Web 音乐播放器，支持播放列表与快捷键。",
-      tech: ["React", "Ts"],
-      demo: "#",
+      name: "个人工具站",
+      desc: "使用React开发的工具占",
+      tech: ["React", "Js"],
+      demo: "https://tools-web-react-dhvf.vercel.app/",
       github: "#",
     },
   ];
@@ -50,9 +46,7 @@ function App() {
       <header className="page-header">
         <div className="container header-inner">
           <div className="header-left">
-            <h1 className="site-title">
-              <TypeWriter text="Hi，欢迎来到我的主页~" />
-            </h1>
+            <h1 className="site-title">欢迎来到我的主页~</h1>
             <div className="subnav">
               <Link className={isHome ? "active" : ""} to="/">
                 主页
@@ -64,21 +58,6 @@ function App() {
           </div>
           <div className="header-right">
             <div className="header-avatar">{/* 头像位 */}</div>
-            {/* 可爱开关按钮 */}
-            <button
-              className={`kawaii-toggle ${fireworksOn ? "on" : "off"}`}
-              onClick={() => setFireworksOn((v) => !v)}
-              aria-pressed={fireworksOn}
-              title={fireworksOn ? "关闭烟花" : "打开烟花"}
-            >
-              <span className="spark">✦</span>
-              <span className="face" aria-hidden>
-                {fireworksOn ? "(｡•́︿•̀｡)" : "(≧▽≦)"}
-              </span>
-              <span className="label">
-                {fireworksOn ? "点击我关闭烟花" : "点击我开启烟花"}
-              </span>
-            </button>
           </div>
         </div>
       </header>
@@ -199,7 +178,6 @@ function App() {
           </Routes>
         </main>
       </div>
-      <Fireworks enabled={fireworksOn} />
     </div>
   );
 }

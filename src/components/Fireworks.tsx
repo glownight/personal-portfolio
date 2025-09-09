@@ -1,15 +1,11 @@
 "use client";
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 
 type FireworksProps = { enabled?: boolean };
 
 const Fireworks: React.FC<FireworksProps> = ({ enabled = true }) => {
-  const cancelledRef = useRef(false);
-
   useEffect(() => {
-    cancelledRef.current = false;
-
     const canvas = document.getElementById('fireworks') as HTMLCanvasElement;
     if (!canvas) return;
     const ctx = canvas.getContext('2d')!;
@@ -24,7 +20,6 @@ const Fireworks: React.FC<FireworksProps> = ({ enabled = true }) => {
 
     // 如果关闭烟花，清空画布并移除事件后提前返回
     if (!enabled) {
-      cancelledRef.current = true;
       ctx.globalCompositeOperation = 'source-over';
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       return () => {
@@ -104,9 +99,6 @@ const Fireworks: React.FC<FireworksProps> = ({ enabled = true }) => {
 
     const isMobile = () => window.innerWidth <= 768;
 
-    // 存储所有上升阶段的 rAF id，便于在关闭时全部取消
-    const riseIds = new Set<number>();
-
     const createFirework = (currentTime: number) => {
       if (currentTime - lastFireworkTime < FIREWORK_INTERVAL) return;
       lastFireworkTime = currentTime;
@@ -125,8 +117,8 @@ const Fireworks: React.FC<FireworksProps> = ({ enabled = true }) => {
       };
 
       let currentY = y;
-      const riseStep = () => {
-        if (cancelledRef.current) return;
+      const rise = () => {
+        if (!canvas) return;
         ctx.globalCompositeOperation = 'source-over';
         ctx.globalAlpha = 1;
         ctx.fillStyle = color;
@@ -135,22 +127,21 @@ const Fireworks: React.FC<FireworksProps> = ({ enabled = true }) => {
         ctx.fill();
         currentY -= 5;
         if (currentY > targetY) {
-          const id = requestAnimationFrame(riseStep);
-          riseIds.add(id);
+          riseId = requestAnimationFrame(rise);
         } else {
           explode(x, currentY);
         }
       };
 
-      const firstId = requestAnimationFrame(riseStep);
-      riseIds.add(firstId);
+      rise();
     };
 
     // 记录并可取消的 rAF id
     let animationId = 0;
+    let riseId = 0;
 
     const animate = (currentTime: number) => {
-      if (cancelledRef.current) return;
+      if (!canvas) return;
       if (currentTime - lastTime >= frameInterval) {
         frameCount++;
         ctx.globalAlpha = 1;
@@ -184,12 +175,9 @@ const Fireworks: React.FC<FireworksProps> = ({ enabled = true }) => {
 
     animationId = requestAnimationFrame(animate);
     return () => {
-      cancelledRef.current = true;
       window.removeEventListener('resize', setCanvasSize);
       cancelAnimationFrame(animationId);
-      // 取消所有上升阶段的 rAF
-      riseIds.forEach((id) => cancelAnimationFrame(id));
-      riseIds.clear();
+      cancelAnimationFrame(riseId);
       ctx.globalCompositeOperation = 'source-over';
       ctx.clearRect(0, 0, canvas.width, canvas.height);
     };
@@ -204,7 +192,6 @@ const Fireworks: React.FC<FireworksProps> = ({ enabled = true }) => {
         left: 0,
         pointerEvents: 'none',
         zIndex: 2,
-        display: enabled ? 'block' : 'none',
       }}
     />
   );
