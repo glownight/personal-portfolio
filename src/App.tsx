@@ -26,14 +26,14 @@ function App() {
       name: "教室",
       desc: "使用Threejs开发的3D项目",
       tech: ["Vue", "Js"],
-      demo: "https://threejs-classroom-6uf3-3u9xf3ekw-glownights-projects.vercel.app/",
+      demo: "threejs-classroom-266txrkus-glownights-projects.vercel.app",
       github: "#",
     },
     {
       name: "个人工具站",
       desc: "使用React开发的工具占",
       tech: ["React", "Js"],
-      demo: "https://tools-web-react-dhvf.vercel.app/",
+      demo: "tools-web-react-a6fox340c-glownights-projects.vercel.app",
       github: "#",
     },
   ];
