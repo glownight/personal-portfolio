@@ -23,6 +23,13 @@ function App() {
 
   const projects = [
     {
+      name: "智能助手",
+      desc: "一个基于React的智能助手",
+      tech: ["React"],
+      demo: "ai.glownight.cn",
+      github: " `https://github.com/glownight/aigc` ",
+    },
+    {
       name: "classroom",
       desc: "使用Threejs开发的3D项目",
       tech: ["Threejs"],
