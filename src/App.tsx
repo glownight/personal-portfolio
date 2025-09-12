@@ -1,8 +1,12 @@
 import { Routes, Route, Link, Navigate, useLocation } from "react-router-dom";
 import "./App.css";
+import Fireworks from "./components/Fireworks";
+import TypeWriter from "./components/TypeWriter";
+import { useState } from "react";
 
 function App() {
   const location = useLocation();
+  const [fireworksOn, setFireworksOn] = useState(true);
   const musicTracks = [
     { title: "Html", plays: "熟悉", comments: "0" },
     { title: "Css", plays: "熟悉", comments: "0" },
@@ -56,11 +60,15 @@ function App() {
 
   return (
     <div className="app">
+      {/* Fireworks canvas */}
+      <Fireworks enabled={fireworksOn} />
       {/* Page header maroon area */}
       <header className="page-header">
         <div className="container header-inner">
           <div className="header-left">
-            <h1 className="site-title">欢迎来到我的主页~</h1>
+            <h1 className="site-title">
+              <TypeWriter text="欢迎来到我的主页~" />
+            </h1>
             <div className="subnav">
               <Link className={isHome ? "active" : ""} to="/">
                 主页
@@ -72,6 +80,19 @@ function App() {
           </div>
           <div className="header-right">
             <div className="header-avatar">{/* 头像位 */}</div>
+            <button
+              type="button"
+              className={`kawaii-toggle ${fireworksOn ? "on" : "off"}`}
+              onClick={() => setFireworksOn((v) => !v)}
+              aria-pressed={fireworksOn}
+              aria-label={fireworksOn ? "关闭烟花" : "开启烟花"}
+            >
+              <span className="spark">✦</span>
+              <span className="face">^_^</span>
+              <span className="label">
+                {fireworksOn ? "点我关闭烟花" : "点我开启烟花"}
+              </span>
+            </button>
           </div>
         </div>
       </header>
@@ -90,7 +111,9 @@ function App() {
                     <section className="card profile-card">
                       <div className="profile-header">
                         <h3 className="profile-name">sl</h3>
-                        <p className="profile-subtitle">前端工程师</p>
+                        <p className="profile-subtitle">
+                          前端开发·全栈开发·独立开发
+                        </p>
                       </div>
                     </section>
                   </section>
