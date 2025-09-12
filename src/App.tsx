@@ -6,7 +6,7 @@ import { useState } from "react";
 
 function App() {
   const location = useLocation();
-  const [fireworksOn, setFireworksOn] = useState(true);
+  const [fireworksOn, setFireworksOn] = useState(false);
   const musicTracks = [
     { title: "Html", plays: "熟悉", comments: "0" },
     { title: "Css", plays: "熟悉", comments: "0" },
