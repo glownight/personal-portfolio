@@ -111,9 +111,7 @@ function App() {
                     <section className="card profile-card">
                       <div className="profile-header">
                         <h3 className="profile-name">sl</h3>
-                        <p className="profile-subtitle">
-                          前端开发·全栈开发·独立开发
-                        </p>
+                        <p className="profile-subtitle">前端开发</p>
                       </div>
                     </section>
                   </section>
