@@ -28,7 +28,7 @@ function App() {
   const projects = [
     {
       name: "音视频",
-      desc: "使用纯JavaScript实现，涵盖了Web音视频开发的核心技术。",
+      desc: "使用纯JavaScript实现，涵盖了Web音视频开发的核心技术",
       tech: ["Js"],
       demo: "yinshipin.miss.xn--6qq986b3xl",
       github: " `https://github.com/glownight/yinshipin` ",
